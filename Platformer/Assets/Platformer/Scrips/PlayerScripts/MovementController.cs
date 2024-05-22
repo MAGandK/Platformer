@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-namespace PlayerSpase
+namespace PlayerSpasePlatformer
 { 
     public class MovementController : MonoBehaviour
     {
         internal float _moveInput;
-        private PlayerX _player;
+        private Player _player;
 
         private void Start()
         {
-            _player = GetComponent<PlayerX>();
+            _player = GetComponent<Player>();
         }
 
         private void Update()
