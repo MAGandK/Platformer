@@ -8,7 +8,7 @@ public class Traps : MonoBehaviour
     {
         if (collision.GetComponent<Player>() != null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            collision.GetComponent<Player>().TakeDamade();
         }
     }
 }

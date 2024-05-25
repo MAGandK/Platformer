@@ -8,7 +8,7 @@ using PlayerSpasePlatformer;
 public class AppleTrigger : MonoBehaviour
 {
     [SerializeField] private Collision2D _collision2D;
-    [SerializeField] private AppleCounter _counter;
+    [SerializeField] private Counter _counter;
     private void OnCollisionEnter2D(Collision2D other)
     {
         _counter.CountAppls();

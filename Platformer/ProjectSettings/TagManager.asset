@@ -15,7 +15,7 @@ TagManager:
   - Background
   - Level
   - Trap
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -38,14 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Player
-    uniqueID: 1023350243
-    locked: 0
   - name: Background
     uniqueID: 3522633211
     locked: 0
   - name: Grounded
     uniqueID: 3323328177
+    locked: 0
+  - name: Player
+    uniqueID: 1023350243
     locked: 0
   - name: Object
     uniqueID: 3116209337

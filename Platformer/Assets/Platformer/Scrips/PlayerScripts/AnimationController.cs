@@ -10,7 +10,7 @@ namespace AnimationControll
         {
             _animatorPlayer = GetComponent<Animator>();
         }
-        
+
         public void Moving(bool isMoving, bool isGrounded, float velocityY) 
         {
             _animatorPlayer.SetBool("isMove", isMoving);

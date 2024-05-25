@@ -6,37 +6,33 @@ using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Movement")]        
+    [Header("Movement")]
     [SerializeField] private float _enemySpeed = 1f;
-    [SerializeField] private Transform _enemyTransform;
-    [SerializeField] private Transform _targetPositionEnemy;
-    [SerializeField] private Transform _targetPositionEnemyFlip;
-    
-    private Transform _currentTarget; 
+    [SerializeField] private Vector3 _targetPositionEnemy;
+    private Vector3 _startPositionEnemy;
 
     private bool _isFlip = true;
-    
     private Rigidbody2D _rb;
-
+    
     private void Start()
     {
-        _currentTarget = _targetPositionEnemy; 
         _rb = GetComponent<Rigidbody2D>();
+        _startPositionEnemy = gameObject.transform.position;
     }
 
     private void Update()
-    {
-        MovmentEnemy();
+    { 
+        MovementEnemy();
     }
 
-    private void MovmentEnemy()
+    private void MovementEnemy()
     {
-        _enemyTransform.position = Vector3.MoveTowards(_enemyTransform.position,
-            _currentTarget.position, _enemySpeed * Time.deltaTime);
-        if (_enemyTransform.position == _currentTarget.position)
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
+            _targetPositionEnemy,_enemySpeed * Time.deltaTime);
+
+        if (gameObject.transform.position == _targetPositionEnemy)
         {
-           FlipEnemy();
-           SwitchTargetPosition();
+            FlipEnemy();
         }
     }
 
@@ -44,17 +40,14 @@ public class Enemy : MonoBehaviour
     {
             _isFlip = !_isFlip;
             transform.Rotate(0, 180, 0);
-        
+            SwitchTargetPosition();
+
     }
+
     private void SwitchTargetPosition()
     {
-        if (_isFlip)
-        {
-            _currentTarget = _targetPositionEnemy;
-        }
-        else
-        {
-            _currentTarget = _targetPositionEnemyFlip;
-        }
+        Vector3 tempPosition = _startPositionEnemy;
+        _startPositionEnemy = _targetPositionEnemy;
+        _targetPositionEnemy = tempPosition;
     }
 }

@@ -1,23 +1,28 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using AnimationControll;
+using UnityEngine.Serialization;
 
 namespace PlayerSpasePlatformer
 {
     public class Player : MonoBehaviour
     {
-    
+        public static Player Instanse;
+ 
         [Header("Movement")]        
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _jumpForce = 1f;
 
         [Header("CillosionInfo")] 
         [SerializeField] private Transform _checkTransform;
-        
         [SerializeField] private float _groundCheckRadius;
         [SerializeField] private LayerMask _groundLayerMask;
+        
         internal bool _isGrounded;
         internal bool _isDoubleGround;
+        
+        private bool _canDoubleJump;
         
         private bool _isMoving;
         private float _velocityY;
@@ -26,26 +31,77 @@ namespace PlayerSpasePlatformer
         private Rigidbody2D _rb;
         
         private MovementController _movementController;
-
         private AnimationController _animationController;
+
+
+        [SerializeField] private GameObject _ballToPool;
+        [SerializeField] private int _initialPoolSize = 15;
+
+        private List<GameObject> _pooledObjects;
+
+        private int _livesPlayer = 3;
+        
+        public delegate  void TakedDamaje(); 
+        public static event TakedDamaje OnTakedDamage;
+        public delegate  void DiedPlayer(); 
+        public static event DiedPlayer OnDiedPlayer;
+        private void Awake()
+        {
+            if (Instanse == null)
+            {
+                Instanse = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         
         private void Start()
         {
             _movementController = GetComponent<MovementController>();
             _animationController = GetComponent<AnimationController>();
-            _rb = GetComponent<Rigidbody2D>(); 
-        }
+            _rb = GetComponent<Rigidbody2D>();
 
+            _pooledObjects = new List<GameObject>();
+            for (int i = 0; i < _initialPoolSize; i++)
+            {
+                GameObject obj = Instantiate(_ballToPool);
+                obj.SetActive(false);
+                _pooledObjects.Add(obj);
+            }
+        }
+        public GameObject GetPooledObject()
+        {
+            foreach (var obj in _pooledObjects)
+            {
+                if (!obj.activeInHierarchy)
+                {
+                    return obj;
+                }
+            }
+
+            GameObject newObj = Instantiate(_ballToPool);
+            newObj.SetActive(false);
+            _pooledObjects.Add(newObj);
+            return newObj;
+        }
+        
+        public void ReturnObjectToPool(GameObject obj)
+        {
+            obj.SetActive(false);
+        }
 
         private void Update()
         {
             _isMoving = _rb.velocity.x != 0;
-            _velocityY = _rb.velocity.y;
-            _animationController.Moving(_isMoving, _isGrounded, _velocityY);
-   
+            
+           _velocityY = _rb.velocity.y;
+           _animationController.Moving(_isMoving, _isGrounded, _velocityY);
             Flip();
-
             CollisionCheck();
+   
         }
         private void FixedUpdate()
         {
@@ -57,17 +113,20 @@ namespace PlayerSpasePlatformer
             if (_isGrounded)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+                _canDoubleJump = true; 
             }
-            else if (_isDoubleGround)
+            else if (_canDoubleJump)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
-                _isDoubleGround = true;
+                _canDoubleJump = false; 
             }
         }
+        
         private void CollisionCheck()
         {
             _isGrounded = Physics2D.OverlapCircle(_checkTransform.position, _groundCheckRadius, _groundLayerMask);
         }
+        
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(_checkTransform.position, _groundCheckRadius);
@@ -80,6 +139,26 @@ namespace PlayerSpasePlatformer
                 _isFlip = !_isFlip;
                 transform.Rotate(0,180,0);
             }
+        }
+
+        public void TakeDamade()
+        {
+            if (_livesPlayer > 0)
+            {
+                _livesPlayer--;
+
+                if (_livesPlayer <= 0)
+                {
+                    DiePlayer();
+                }
+            }
+            
+            OnTakedDamage?.Invoke();
+        }
+
+        private void DiePlayer()
+        {
+            OnDiedPlayer?.Invoke();
         }
     }
 }

@@ -481,3 +481,7 @@
 /Users/admin/version/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/admin/version/obj/Debug/Assembly-CSharp.dll
 /Users/admin/version/obj/Debug/Assembly-CSharp.pdb
+/Users/admin/Platformer/Platformer/obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache
+/Users/admin/Platformer/Platformer/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
+/Users/admin/Platformer/Platformer/obj/Debug/Assembly-CSharp.dll
+/Users/admin/Platformer/Platformer/obj/Debug/Assembly-CSharp.pdb
