@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,27 +6,48 @@ using PlayerSpasePlatformer;
 
 public class Ball : MonoBehaviour
 {
-    private Rigidbody2D _rbBall;
-    
     [SerializeField] private float _ballSpeed = 10f;
-    private Vector3 _direction;
+    
+    private Rigidbody2D _rbBall;
 
-    private void Awake()
+
+    private ShootingPlayer _shooting;
+    private void Start()
     {
         _rbBall = GetComponent<Rigidbody2D>();
     }
-    
-    public void MovingBall(Vector2 direction)
+
+    private void Update()
     {
-        _rbBall.velocity = direction * _ballSpeed;
+          FlipBullet();
     }
 
-     private void OnCollisionEnter2D(Collision2D collision)
+    public void FlipBullet()
     {
-        // if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Level"))
-        // {
-            Player.Instanse.ReturnObjectToPool(this.gameObject);
-       // }
+        if (Player.Instanse._isFlip)
+        {
+            _rbBall.velocity = Vector2.right * _ballSpeed;
+        }
+        else
+        {
+            _rbBall.velocity = Vector2.left * _ballSpeed;
+        }
     }
    
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
+            collider.gameObject.GetComponent<Enemy>().DiedEnemy(); 
+            gameObject.SetActive(false); 
+            Debug.Log("Удар с Enemy");
+            
+        }
+        else if (collider.gameObject.CompareTag("Level"))
+        {
+            collider.gameObject.GetComponent<Collider2D>();
+            gameObject.SetActive(false); 
+            Debug.Log("Удар с уровнем");
+        }
+    }
 }

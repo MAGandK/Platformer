@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     private bool _isFlip = true;
     private Rigidbody2D _rb;
     
+    public delegate void Dead();
+    public static event  Dead OnDieEnemy;
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -50,4 +52,11 @@ public class Enemy : MonoBehaviour
         _startPositionEnemy = _targetPositionEnemy;
         _targetPositionEnemy = tempPosition;
     }
+
+   public void DiedEnemy()
+    {
+        gameObject.SetActive(false);
+        OnDieEnemy?.Invoke();
+    }
+
 }

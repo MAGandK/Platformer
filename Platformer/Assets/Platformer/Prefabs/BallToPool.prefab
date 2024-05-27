@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 677391480982196370}
   - component: {fileID: 8055519352994248112}
   - component: {fileID: 3731086535516713697}
-  - component: {fileID: 4634587178541126807}
   - component: {fileID: 4755784183737260405}
-  m_Layer: 6
+  - component: {fileID: 5255327407500542808}
+  m_Layer: 11
   m_Name: BallToPool
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,34 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0027168542, y: -0.0027168244}
   m_Size: {x: 0.27456632, y: 0.27456632}
   m_Direction: 0
---- !u!114 &4634587178541126807
+--- !u!50 &4755784183737260405
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809345671397368814}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &5255327407500542808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,31 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf7e138b7e1f41b08a8c9ab00d5793b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballSpeed: 10
---- !u!50 &4755784183737260405
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8809345671397368814}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  _ballSpeed: 20

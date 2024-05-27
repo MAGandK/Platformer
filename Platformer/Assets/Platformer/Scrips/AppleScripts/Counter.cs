@@ -16,7 +16,7 @@ public class Counter : MonoBehaviour
     private int _playerHealthCount  = 3;
     private void OnEnable()
     {
-        EnemyTrigger.OnDieEnemy += EnemyTriggerOnDieEnemy;
+        Enemy.OnDieEnemy += EnemyOnDieEnemy;
         Player.OnTakedDamage += PlayerOnTakedDamage;
     }
 
@@ -30,7 +30,7 @@ public class Counter : MonoBehaviour
 
     }
 
-    private void EnemyTriggerOnDieEnemy()
+    private void EnemyOnDieEnemy()
     {
         _ememyCount ++;
         UpdateCountText();
@@ -55,7 +55,7 @@ public class Counter : MonoBehaviour
     
     private void OnDisable()
     {
-        EnemyTrigger.OnDieEnemy -= EnemyTriggerOnDieEnemy;
+        Enemy.OnDieEnemy -= EnemyOnDieEnemy;
         Player.OnTakedDamage -= PlayerOnTakedDamage;
     }
 }

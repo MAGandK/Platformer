@@ -26,23 +26,17 @@ namespace PlayerSpasePlatformer
         
         private bool _isMoving;
         private float _velocityY;
-        private bool _isFlip = true;
+        internal bool _isFlip = true;
         
         private Rigidbody2D _rb;
         
         private MovementController _movementController;
         private AnimationController _animationController;
 
-
-        [SerializeField] private GameObject _ballToPool;
-        [SerializeField] private int _initialPoolSize = 15;
-
-        private List<GameObject> _pooledObjects;
-
         private int _livesPlayer = 3;
         
-        public delegate  void TakedDamaje(); 
-        public static event TakedDamaje OnTakedDamage;
+        public delegate  void TakedDamage(); 
+        public static event TakedDamage OnTakedDamage;
         public delegate  void DiedPlayer(); 
         public static event DiedPlayer OnDiedPlayer;
         private void Awake()
@@ -50,7 +44,7 @@ namespace PlayerSpasePlatformer
             if (Instanse == null)
             {
                 Instanse = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -63,36 +57,7 @@ namespace PlayerSpasePlatformer
             _movementController = GetComponent<MovementController>();
             _animationController = GetComponent<AnimationController>();
             _rb = GetComponent<Rigidbody2D>();
-
-            _pooledObjects = new List<GameObject>();
-            for (int i = 0; i < _initialPoolSize; i++)
-            {
-                GameObject obj = Instantiate(_ballToPool);
-                obj.SetActive(false);
-                _pooledObjects.Add(obj);
-            }
         }
-        public GameObject GetPooledObject()
-        {
-            foreach (var obj in _pooledObjects)
-            {
-                if (!obj.activeInHierarchy)
-                {
-                    return obj;
-                }
-            }
-
-            GameObject newObj = Instantiate(_ballToPool);
-            newObj.SetActive(false);
-            _pooledObjects.Add(newObj);
-            return newObj;
-        }
-        
-        public void ReturnObjectToPool(GameObject obj)
-        {
-            obj.SetActive(false);
-        }
-
         private void Update()
         {
             _isMoving = _rb.velocity.x != 0;
