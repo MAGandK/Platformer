@@ -39,6 +39,9 @@ namespace PlayerSpasePlatformer
         public static event TakedDamage OnTakedDamage;
         public delegate  void DiedPlayer(); 
         public static event DiedPlayer OnDiedPlayer;
+        
+        internal bool _isFinished;
+        [SerializeField]private Transform _targetTransform;
         private void Awake()
         {
             if (Instanse == null)
@@ -57,6 +60,7 @@ namespace PlayerSpasePlatformer
             _movementController = GetComponent<MovementController>();
             _animationController = GetComponent<AnimationController>();
             _rb = GetComponent<Rigidbody2D>();
+            _isFinished = false;
         }
         private void Update()
         {
@@ -70,6 +74,12 @@ namespace PlayerSpasePlatformer
         }
         private void FixedUpdate()
         {
+            if (_isFinished)
+            {
+                _rb.velocity = new Vector2(0, _rb.velocity.y); 
+                return;
+            }
+            
             _rb.velocity = new Vector2( _movementController._moveInput * _speed, _rb.velocity.y);
         }
         
@@ -124,6 +134,12 @@ namespace PlayerSpasePlatformer
         private void DiePlayer()
         {
             OnDiedPlayer?.Invoke();
+        }
+        
+        public void SetFinished()
+        {
+            _isFinished = true;
+            _movementController._moveInput = 0;
         }
     }
 }
