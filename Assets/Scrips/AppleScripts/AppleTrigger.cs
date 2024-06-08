@@ -11,7 +11,10 @@ public class AppleTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _counter.CountAppls();
-        Destroy(this.gameObject);
+        if (other.gameObject.tag == "Player")
+        {
+            _counter.CountAppls();
+            Destroy(this.gameObject);
+        }
     }
 }

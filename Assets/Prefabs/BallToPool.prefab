@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3731086535516713697}
   - component: {fileID: 4755784183737260405}
   - component: {fileID: 5255327407500542808}
+  - component: {fileID: 5326566409085984320}
   m_Layer: 11
   m_Name: BallToPool
   m_TagString: Ball
@@ -161,4 +162,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf7e138b7e1f41b08a8c9ab00d5793b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballSpeed: 20
+  _ballSpeed: 400
+--- !u!114 &5326566409085984320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809345671397368814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83992c26b3d04e569306bac5c02ccc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

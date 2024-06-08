@@ -47,7 +47,6 @@ namespace PlayerSpasePlatformer
             if (Instanse == null)
             {
                 Instanse = this;
-                //DontDestroyOnLoad(gameObject);
             }
             else
             {
